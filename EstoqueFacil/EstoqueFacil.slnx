@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../EstoqueFacil.Tests/EstoqueFacil.Tests.csproj" />
+  <Project Path="EstoqueFacil.csproj" />
+</Solution>
