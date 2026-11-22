@@ -44,5 +44,29 @@
             Assert.Throws<InvalidOperationException>(() =>
             servico.RegistrarEntrada(99, 5));
         }
+        [Fact]
+        public void Adicionar_ProdutoComIdDuplicado_DeveLancarExcecao()
+        {
+            var repositorio = new EstoqueRepositorio();
+            var mouse = new Produto
+            {
+                Id = 1,
+                Nome = "Mouse",
+                Quantidade = 10,
+                Preco = 50
+            };
+            repositorio.Adicionar(mouse);
+            var teclado = new Produto
+            {
+                Id = 1,
+                Nome = "Teclado",
+                Quantidade = 5,
+                Preco = 100
+            };
+            Assert.Throws<InvalidOperationException>(() =>
+            repositorio.Adicionar(teclado));
+
+
+        }
     }
 }
