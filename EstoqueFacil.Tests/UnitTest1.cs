@@ -18,5 +18,23 @@
             servico.RegistrarEntrada(1, 5);
             Assert.Equal(15, produto.Quantidade); // valor esperado x valor obtido
         }
+        [Fact]
+        public void RegistrarEntrada_QuantidadeNegativa_DeveLancarExcecao()
+        {
+            var repositorio = new EstoqueRepositorio();
+
+            var produto = new Produto
+            {
+                Id = 1,
+                Nome = "Teclado",
+                Quantidade = 10,
+                Preco = 100
+            };
+            repositorio.Adicionar(produto);
+           var servico =  new EstoqueServico(repositorio);
+           Assert.Throws<ArgumentException>(() =>
+           servico.RegistrarEntrada(1, -5));
+
+        }
     }
 }
