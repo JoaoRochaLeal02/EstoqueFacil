@@ -1,30 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using System;
 
 namespace EstoqueFacil
 {
     public class EstoqueServico
     {
-        private readonly EstoqueRepositorio _repositorio; ///referencia ao repositório
+        private readonly EstoqueRepositorio _repositorio;
 
-        public EstoqueServico (EstoqueRepositorio repositorio)
+        public EstoqueServico(EstoqueRepositorio repositorio)
         {
             _repositorio = repositorio;
         }
-        public void RegistrarEntrada (int IdProduto, int quantidade) //método registrar entrada ID do produto e quantidade que chegaram
+
+        public void RegistrarEntrada(int idProduto, int quantidade)
         {
-            var produto = _repositorio.BuscarPorId(IdProduto); /// busca o produto por ID
+            var produto = _repositorio.BuscarPorId(idProduto);
+
             if (produto == null)
             {
-                throw new InvalidOperationException("Produto não encontrado.");  // verifica se o produto existe, se devolver null lancará a exceção
+                throw new InvalidOperationException("Produto não encontrado.");
             }
+
             if (quantidade <= 0)
             {
                 throw new ArgumentException("A quantidade deve ser maior que zero.");
             }
+
             produto.Quantidade += quantidade;
         }
 
+        public void RegistrarSaida(int idProduto, int quantidade)
+        {
+            var produto = _repositorio.BuscarPorId(idProduto);
+
+            if (produto == null)
+            {
+                throw new InvalidOperationException("Produto não encontrado.");
+            }
+
+            if (quantidade <= 0)
+            {
+                throw new ArgumentException("A quantidade deve ser maior que zero.");
+            }
+
+            if (quantidade > produto.Quantidade)
+            {
+                throw new InvalidOperationException("Estoque insuficiente.");
+            }
+
+            produto.Quantidade -= quantidade;
+        }
     }
 }
