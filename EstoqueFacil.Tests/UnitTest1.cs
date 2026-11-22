@@ -36,5 +36,13 @@
            servico.RegistrarEntrada(1, -5));
 
         }
+        [Fact]
+        public void RegistrarEntrada_ProdutoInexistente_DeveLancarExcecao()
+        {
+            var repositorio = new EstoqueRepositorio();
+            var servico = new EstoqueServico(repositorio); // passando repositório vazio para fazer o teste
+            Assert.Throws<InvalidOperationException>(() =>
+            servico.RegistrarEntrada(99, 5));
+        }
     }
 }
